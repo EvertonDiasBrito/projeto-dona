@@ -8,10 +8,13 @@ import Home from './components/pages/Home'
 import Relatorios from './components/pages/Relatorios'
 import Servicos from './components/pages/Servicos'
 import Clientes from './components/pages/Clientes'
+import NovoCliente from './components/pages/NovoCliente'
 
 import Container from './components/layout/Container'
 import NavBar from './components/layout/NavBar'
 import Footer from './components/layout/Footer'
+
+
 
 
 function App() {
@@ -26,6 +29,7 @@ function App() {
           <Route path="/clientes" element={<Clientes />} />
           <Route path="/relatorios" element={<Relatorios />} />
           <Route path="/servicos" element={<Servicos />} />
+          <Route path="/novocliente" element={<NovoCliente />} />
         </Routes>
       </Container>
       <Footer />

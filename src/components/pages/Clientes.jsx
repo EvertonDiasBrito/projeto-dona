@@ -8,6 +8,7 @@ import Container from '../layout/Container'
 
 import LinkButton from '../layout/LinkButton'
 import ClienteCard from './ClienteCard'
+import Loading from '../layout/Loading'
 
 
   
@@ -75,8 +76,8 @@ function Clientes() {
                 morada={cliente.Morada}
                 handleRemove={removeCliente}
             />)}  
-            
-            { clientes.length === 0 && (<p>Não há clientes cadastrados!</p>
+            {!removeLoading && <Loading />}
+            { removeLoading && clientes.length === 0 && (<p>Não há clientes cadastrados!</p>
             )}
             
       </Container>

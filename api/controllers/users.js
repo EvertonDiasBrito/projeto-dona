@@ -22,7 +22,22 @@ export const getUsers = (req, res) => {
         if (err) return res.json(err);
 
         return res.status(200).json(data);
-    });
+    }); 
+};
 
+export const addUser = (req, res) => {
     
+    const q = "INSERT INTO dona_clientes(`cliente`, `fone`, `morada`) VALUES(?)";
+
+    const values = [
+        req.body.cliente,
+        req.body.fone,
+        req.body.morada,
+    ];
+
+    db.query(q, [values], (err) => {
+        if (err) return res.status(500).json(err);
+
+        return res.status(201).json("Cliente criado com sucesso.");
+    });
 };
