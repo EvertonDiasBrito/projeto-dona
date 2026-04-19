@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
@@ -8,6 +6,7 @@ import Home from './components/pages/Home'
 import Relatorios from './components/pages/Relatorios'
 import Servicos from './components/pages/Servicos'
 import Clientes from './components/pages/Clientes'
+import Cliente from './components/pages/Cliente'
 import NovoCliente from './components/pages/NovoCliente'
 
 import Container from './components/layout/Container'
@@ -30,6 +29,7 @@ function App() {
           <Route path="/relatorios" element={<Relatorios />} />
           <Route path="/servicos" element={<Servicos />} />
           <Route path="/novocliente" element={<NovoCliente />} />
+          <Route path="/clientes/:id" element={<Cliente />} />
         </Routes>
       </Container>
       <Footer />
