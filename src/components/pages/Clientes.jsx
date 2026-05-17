@@ -1,17 +1,12 @@
 import { useLocation } from 'react-router-dom'
-
 import { useState, useEffect } from 'react'
 
 import Message from './Message'
 import styles from './Clientes.module.css'
 import Container from '../layout/Container'
-
 import LinkButton from '../layout/LinkButton'
 import ClienteCard from './ClienteCard'
 import Loading from '../layout/Loading'
-
-
-  
 
 function Clientes() {
   const [clientes, setClientes] = useState([]) 
@@ -23,7 +18,6 @@ function Clientes() {
 
   useEffect(() => {
     setTimeout(() => {
-
       fetch(`http://localhost:8800/users`, {
         method: 'GET',
         headers: {
@@ -35,27 +29,37 @@ function Clientes() {
           console.log(data)
           setClientes(data)
           setRemoveLoading(true)
-          
         })
         .catch(err => console.log(err))
     }, 300);
-    }, [])
+  }, [])
 
-    function removeCliente(id) {
-      fetch(`http://localhost:8800/users/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        
+  function removeCliente(id) {
+    setProjectMessage('') // Limpa mensagens anteriores
+
+    fetch(`http://localhost:8800/users/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(resp => {
+        // 💡 Correção: Só tenta ler JSON se a resposta for OK
+        if (!resp.ok) {
+          throw new Error('Não foi possível deletar no servidor')
+        }
+        return resp.status !== 204 ? resp.json() : null;
       })
-        .then(resp => resp.json())
-        .then(()=> {
-          setClientes(clientes.filter(cliente => cliente.id !== id))
-          setProjectMessage('cliente removido com sucesso!')
-        })
-        .catch(err => console.log(err))
-    }
+      .then(() => {
+        // Remove o cliente do estado local para sumir da tela imediatamente
+        setClientes(clientes.filter(cliente => cliente.id !== id))
+        setProjectMessage('Cliente removido com sucesso!')
+      })
+      .catch(err => {
+        console.log("Erro ao deletar:", err)
+        alert("Erro ao tentar remover o cliente.")
+      })
+  }
 
   return (
     <div className={styles.clientes_container}>
@@ -67,22 +71,23 @@ function Clientes() {
       {projectMessage && <Message type="success" msg={projectMessage} />}
       <Container customClass="start">
         {clientes.length > 0 &&
-          clientes.map((cliente) =>
+          clientes.map((cliente) => (
             <ClienteCard
                 key={cliente.id}
                 id={cliente.id}
-                cliente={cliente.Cliente}
-                fone={cliente.Fone}
-                morada={cliente.Morada}
+                cliente={cliente.Cliente}   
+                fone={cliente.Fone}      
+                morada={cliente.Morada}  
                 handleRemove={removeCliente}
-            />)}  
-            {!removeLoading && <Loading />}
-            { removeLoading && clientes.length === 0 && (<p>Não há clientes cadastrados!</p>
-            )}
-            
+            />
+          ))}  
+          {!removeLoading && <Loading />}
+          {removeLoading && clientes.length === 0 && (
+            <p>Não há clientes cadastrados!</p>
+          )}
       </Container>
     </div>
   );
 }
 
-export default Clientes
+export default Clientes;

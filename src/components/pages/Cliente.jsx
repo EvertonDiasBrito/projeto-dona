@@ -16,7 +16,7 @@ function Cliente() {
     const [type, setType] = useState();
 
     useEffect(() => {
-        fetch(`http://localhost:8800/clientes/${id}`)
+        fetch(`http://localhost:8800/users/${id}`)
             .then((resp) => resp.json())
             .then((data) => {
                 setCliente(Array.isArray(data) ? data[0] : data);
@@ -27,7 +27,7 @@ function Cliente() {
     function editPost(clienteAtualizado) {
 
         setMessage('');
-        fetch(`http://localhost:8800/clientes/${id}`, {
+        fetch(`http://localhost:8800/users/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ function Cliente() {
                     <Container>
                          {message && <Message type={type ?? ''} msg={message ?? ''} />}
                         <div>
-                            <h1>Cliente: {cliente.nome}</h1>
+                            <h1>Cliente: {cliente.cliente}</h1>
                             <button onClick={toggleClienteForm}>
                                 {!showClienteForm ? "Editar cliente" : "Fechar edição"}
                             </button>

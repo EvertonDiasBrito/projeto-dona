@@ -27,17 +27,57 @@ export const getUsers = (req, res) => {
 
 export const addUser = (req, res) => {
     
-    const q = "INSERT INTO dona_clientes(`cliente`, `fone`, `morada`) VALUES(?)";
+    const q = "INSERT INTO dona_clientes(`Cliente`, `Fone`, `Morada`) VALUES(?)";
 
     const values = [
-        req.body.cliente,
-        req.body.fone,
-        req.body.morada,
+        req.body.Cliente,
+        req.body.Fone,
+        req.body.Morada,
     ];
 
-    db.query(q, [values], (err) => {
+    db.query(q, [values], (err, result) => {
         if (err) return res.status(500).json(err);
 
-        return res.status(201).json("Cliente criado com sucesso.");
+         return res.status(201).json({ 
+            id: result.insertId, 
+            Cliente: req.body.Cliente, 
+            Fone: req.body.Fone, 
+            Morada: req.body.Morada 
+        });
+    });
+};
+
+export const deleteUser = (req, res) => {
+    const q = "DELETE FROM dona_clientes WHERE id = ?";
+
+    db.query(q, [req.params.id], (err, result) => {
+        if (err) return res.status(500).json(err);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json("Cliente não encontrado.");
+        }
+
+        return res.status(200).json("Cliente eliminado com sucesso.");
+    });
+};
+
+export const updateUser = (req, res) => {
+    const q = "UPDATE dona_clientes SET `Cliente` = ?, `Fone` = ?, `Morada` = ? WHERE id = ?";
+
+    const values = [
+        req.body.Cliente || req.body.cliente,
+        req.body.Fone || req.body.fone,
+        req.body.Morada || req.body.morada,
+        req.params.id
+    ];
+
+    db.query(q, values, (err, result) => {
+        if (err) return res.status(500).json(err);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json("Cliente não encontrado.");
+        }
+
+        return res.status(200).json("Cliente atualizado com sucesso.");
     });
 };
