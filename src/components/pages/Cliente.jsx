@@ -61,15 +61,15 @@ function Cliente() {
                     <Container>
                          {message && <Message type={type ?? ''} msg={message ?? ''} />}
                         <div>
-                            <h1>Cliente: {cliente.cliente}</h1>
+                            <h1>Cliente: {cliente.Cliente}</h1>
                             <button onClick={toggleClienteForm}>
                                 {!showClienteForm ? "Editar cliente" : "Fechar edição"}
                             </button>
                              {!showClienteForm ? (
                                     <div>
-                                        <p><span>Cliente:</span> {cliente.cliente}</p>
-                                        <p><span>Telefone:</span> {cliente.fone}</p>
-                                        <p><span>Morada:</span> {cliente.morada}</p>
+                                        <p><span>Cliente:</span> {cliente.Cliente}</p>
+                                        <p><span>Telefone:</span> {cliente.Fone}</p>
+                                        <p><span>Morada:</span> {cliente.Morada}</p>
                                     </div>
                                  ) : (
                                 <div className={styles.cliente_form}>
