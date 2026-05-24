@@ -1,0 +1,69 @@
+.formContainer {
+    max-width: 450px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.titulo {
+    font-size: 1.5rem;
+    color: #333333;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.mensagem {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    background-color: #e6f4ea;
+    color: #137333;
+}
+
+.formGrupo {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.formGrupo label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555555;
+    margin-bottom: 0.5rem;
+}
+
+.inputField, .selectField {
+    padding: 0.75rem;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.inputField:focus, .selectField:focus {
+    border-color: #007bff;
+}
+
+.botaoSubmeter {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 0.5rem;
+}
+
+.botaoSubmeter:hover {
+    background-color: #0056b3;
+}
